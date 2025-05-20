@@ -1,8 +1,5 @@
-rasterio as rs
-glob
-os
-math
+numpy
+rasterio
 tqdm
-matplotlib.pyplot as plt
-from GeoPatch import TrainPatch
-
+matplotlib
+GeoPatch @ git+https://github.com/dein-username/GeoPatch.git
