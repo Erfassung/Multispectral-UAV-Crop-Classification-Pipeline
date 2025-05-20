@@ -14,3 +14,4 @@ with rasterio.open('patches/patch/79_img.tif') as src:
 # Print results
 for i, (bmin, bmax) in enumerate(zip(band_mins, band_maxs), 1):
     print(f'Band {i}: min = {bmin}, max = {bmax}')
+
