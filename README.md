@@ -54,9 +54,9 @@ pip install -r requirements.txt
    - Reads `data/shapefiles/md_FieldSHP.shp`  
    - Writes `data/shapefiles/final_shape.geojson` with integer `crop_label`
 
-2. **Rasterize the GeoJSON at 3 cm**  
+2. **Rasterize the GeoJSON**  
    ```bash
-   python rio_x_array.py
+   python testscript.py
    ```
    - Reads `final_shape.geojson`  
    - Writes `data/shapefiles/crop_mask_aligned.tif` at 0.03 m resolution, aligned to your orthos
