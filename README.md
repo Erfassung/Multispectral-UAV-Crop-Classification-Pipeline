@@ -17,9 +17,8 @@ cutting-and-label/
 │   │   └── …
 │   └── shapefiles/
 │       ├── md_FieldSHP.shp       # original shapefile
-│       ├── fieldshape.geojson    # intermediate vector
+│       ├── fieldshape.geojson    # intermediate vector after changing coordinate types of md_FieldSHP.shp to EPSG:32632 - WGS 84 / UTM zone 32N
 │       ├── final_shape.geojson   # encoded vector with crop_label
-│       ├── crop_mask.tif         # 3 cm mask (unaligned)
 │       ├── crop_mask_aligned.tif # aligned mask for all orthos
 │       └── …
 ├── patches/                      # output patches per ortho
