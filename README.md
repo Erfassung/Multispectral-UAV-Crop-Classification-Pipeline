@@ -9,7 +9,7 @@ A reproducible pipeline for encoding vector crop labels, rasterizing them at 3 c
 
 ```
 
-.
+
 ├── .venv/                          # Python virtual environment
 ├── .vscode/                        # VSCode settings
 ├── data/
