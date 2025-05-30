@@ -10,7 +10,7 @@ from GeoPatch import TrainPatch
 patches_folder = "patches"
 os.makedirs(patches_folder, exist_ok=True)
 
-for image in glob.glob("data/*.tif"):
+for image in glob.glob("data/raw/*.tif"):
     Ortho = image
     label1 = "data/label/shape_raster.tif"
     patch = TrainPatch(image=Ortho, label=label1, patch_size=256, stride=128, channel_first=True)
