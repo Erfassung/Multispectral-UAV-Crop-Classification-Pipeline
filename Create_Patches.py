@@ -5,8 +5,6 @@ from GeoPatch import TrainPatch
 patches_root = "patches"
 os.makedirs(patches_root, exist_ok=True)
 
-masks_dir = "data/shapefiles/masks_per_ortho"
-
 for ortho_path in glob.glob("data/raw/*.tif"):
     stem = os.path.splitext(os.path.basename(ortho_path))[0]
     out_dir = os.path.join(patches_root, stem)
