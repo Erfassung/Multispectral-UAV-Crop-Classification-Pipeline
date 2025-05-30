@@ -1,30 +1,19 @@
-import numpy as np
-import rasterio as rs
-import glob
 import os
-import math
-import tqdm
-import matplotlib.pyplot as plt
+import glob
 from GeoPatch import TrainPatch
 
-patches_folder = "patches"
-os.makedirs(patches_folder, exist_ok=True)
-""" 
-for image in glob.glob("data/raw/*.tif"):
-    Ortho = image
-    label1 = "data/shapefiles/crop_mask.tif"
-    patch = TrainPatch(image=Ortho, label=label1, patch_size=256, stride=128, channel_first=True)
-    patch.data_dimension()
-    patch.patch_info()
-    patch.save_Geotif(folder_name=patches_folder, only_label=True)
+patches_root = "patches"
+os.makedirs(patches_root, exist_ok=True)
 
-"""
+masks_dir = "data/shapefiles/masks_per_ortho"
 
-
-for image in glob.glob("data/raw/230607_reflectance_ortho.tif"):
-    Ortho = image
-    label1 = "data/shapefiles/crop_mask_aligned.tif"
-    patch = TrainPatch(image=Ortho, label=label1, patch_size=256, stride=128, channel_first=True)
-    patch.data_dimension()
-    patch.patch_info()
-    patch.save_Geotif(folder_name=patches_folder, only_label=True)
+for ortho_path in glob.glob("data/raw/*.tif"):
+    stem = os.path.splitext(os.path.basename(ortho_path))[0]
+    out_dir = os.path.join(patches_root, stem)
+    os.makedirs(out_dir, exist_ok=True)
+    mask_path = "data/shapefiles/crop_mask_aligned.tif"
+    patcher = TrainPatch(image=ortho_path, label=mask_path, patch_size=256, stride=128, channel_first=True)
+    patcher.data_dimension()
+    patcher.patch_info()
+    patcher.save_Geotif(folder_name=out_dir, only_label=True)
+    print(f"Saved patches for {stem} to {out_dir}")
