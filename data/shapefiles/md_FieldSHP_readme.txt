@@ -1,0 +1,6 @@
+"Attribute name","Description"
+"plot_ID","Plot identifier"
+"crop","Crop species"
+"genotype","Crop genotype"
+"var","Variation of the plot, specific to the crop species, e.g., the herbicide level for sugar beet plots."
+"RM_plot_id","Destructive plot identifier used during data collection only."

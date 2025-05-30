@@ -6,10 +6,6 @@ color space von rgb zu lab noch ändern später !!!
 # Rasterize with python script rio_x_array:
 run in Terminal: python rio_x_array.py
 
-
-
-
-
 # Rasterize from .geojson with QGIS.
 
 Rasterize to a labeled TIFF when you have geojson.
@@ -43,3 +39,5 @@ NoData = 255
 
 # now we can load into QGIS for checking the geojson + the raster.tif and then feed it to our geopatch script
 In QGIS: Add final_shape_raster.tif, set Symbology ► Singleband pseudocolor, classify 0–7, mark 255 as transparent.
+
+

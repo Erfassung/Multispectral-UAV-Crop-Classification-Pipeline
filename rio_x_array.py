@@ -11,7 +11,7 @@ import os
 os.makedirs("data/shapefiles", exist_ok=True)
 
 #load the geojson
-gdf = gpd.read_file("data/shapefiles/md_FieldSHP.geojson")
+gdf = gpd.read_file("data/shapefiles/final_shape.geojson")
 
 #LineStrings to Polygons
 def to_polygon(geom):
@@ -19,7 +19,7 @@ def to_polygon(geom):
         return Polygon(geom.coords)
     if geom.geom_type == "MultiLineString":
         #merge closed rings
-        for part in geom:
+        for part in geom.geoms:
             if part.coords[0] == part.coords[-1]:
                 return Polygon(part.coords)
     return geom
@@ -62,4 +62,4 @@ da = da.rio.write_nodata(255, inplace=True)  # mark 255 as nodata
 output_path = "data/shapefiles/crop_mask.tif"
 da.rio.to_raster(output_path, driver="GTiff", dtype=da.dtype)
 
-print(f"Written the mask to: {output_path}")
+print(f"saved to: {output_path}")

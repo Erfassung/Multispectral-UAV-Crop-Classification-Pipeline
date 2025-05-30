@@ -14,7 +14,7 @@ print(list(le.inverse_transform([2, 2, 1])))"""
 os.makedirs("data/shapefiles", exist_ok=True)
 
 #read shapefile
-gdf = gpd.read_file("data/shapefiles/md_FieldSHP.shp") #shape file needs to be in the sub dir data/shapefiles 
+gdf = gpd.read_file("data/shapefiles/fieldshape.geojson") #shape file needs to be in the sub dir data/shapefiles 
 
 #encode field and capture array
 le = LabelEncoder()
