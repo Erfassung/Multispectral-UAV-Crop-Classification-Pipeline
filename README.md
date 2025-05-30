@@ -1,6 +1,6 @@
 # Cutting-and-Label
 
-A reproducible pipeline for encoding vector crop labels, rasterizing them at 3 cm resolution, and generating training patches.
+pipeline for encoding vector crop labels, rasterizing them, and generating training patches.
 
 ---
 
