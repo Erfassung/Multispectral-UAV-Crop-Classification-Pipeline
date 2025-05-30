@@ -44,8 +44,6 @@ Activate your virtual environment and install:
 pip install -r requirements.txt
 ```
 
-> *Later:* convert color space from RGB → LAB if needed.
-
 ---
 
 ## 2. Run the Three Main Steps
@@ -69,7 +67,7 @@ pip install -r requirements.txt
    python create_patches.py
    ```
    - Tiles all TIFFs in `data/raw/` into 256×256 patches (stride 128)  
-   - Saves label-only patches into `patches/`
+   - Saves label-only patches into `patches/name_of_ortho/`
 
 ---
 
