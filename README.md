@@ -1,6 +1,6 @@
 # Cutting-and-Label
 
-A reproducible pipeline for encoding vector crop labels, rasterizing them at 3 cm resolution, and generating training patches.
+pipeline for encoding vector crop labels, rasterizing them, and generating training patches.
 
 ---
 
@@ -17,9 +17,8 @@ cutting-and-label/
 │   │   └── …
 │   └── shapefiles/
 │       ├── md_FieldSHP.shp       # original shapefile
-│       ├── fieldshape.geojson    # intermediate vector
+│       ├── fieldshape.geojson    # intermediate vector after changing coordinate types of md_FieldSHP.shp to EPSG:32632 - WGS 84 / UTM zone 32N
 │       ├── final_shape.geojson   # encoded vector with crop_label
-│       ├── crop_mask.tif         # 3 cm mask (unaligned)
 │       ├── crop_mask_aligned.tif # aligned mask for all orthos
 │       └── …
 ├── patches/                      # output patches per ortho
@@ -44,8 +43,6 @@ Activate your virtual environment and install:
 pip install -r requirements.txt
 ```
 
-> *Later:* convert color space from RGB → LAB if needed.
-
 ---
 
 ## 2. Run the Three Main Steps
@@ -57,9 +54,9 @@ pip install -r requirements.txt
    - Reads `data/shapefiles/md_FieldSHP.shp`  
    - Writes `data/shapefiles/final_shape.geojson` with integer `crop_label`
 
-2. **Rasterize the GeoJSON at 3 cm**  
+2. **Rasterize the GeoJSON**  
    ```bash
-   python rio_x_array.py
+   python testscript.py
    ```
    - Reads `final_shape.geojson`  
    - Writes `data/shapefiles/crop_mask_aligned.tif` at 0.03 m resolution, aligned to your orthos
@@ -69,7 +66,7 @@ pip install -r requirements.txt
    python create_patches.py
    ```
    - Tiles all TIFFs in `data/raw/` into 256×256 patches (stride 128)  
-   - Saves label-only patches into `patches/`
+   - Saves label-only patches into `patches/name_of_ortho/`
 
 ---
 
