@@ -10,6 +10,7 @@ import argparse
 #https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html #Reading/Writing Vector Files
 #https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_crs.html #Reprojecting
 #https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoSeries.buffer.html #Geometry Operations #Minkowski sum is just sum of euclidean distances like always.
+#https://pandas.pydata.org/docs/reference/api/pandas.Series.cat.codes.html
 #https://rasterio.readthedocs.io/en/latest/api/rasterio.html#rasterio.open #Opening & Inspecting Rasters
 #https://rasterio.readthedocs.io/en/latest/api/rasterio.features.html#rasterio.features.rasterize #Rasterizing Vector Geometries
 #https://rasterio.readthedocs.io/en/latest/api/rasterio.io.html#rasterio.io.DatasetWriter.write # Writing to a New GeoTIFF
@@ -67,14 +68,13 @@ class PatchExtractor:
     def _load_and_encode_vector(self):
         gdf = gpd.read_file(self.vector_path)
         # encode crop with pandas categorical
-        bad = gdf["crop"].str.contains(r"Mixture", na=False) #exclude my fav polygons because for classifcation mixed crop polygons are useless for patch wise classification 
+        bad = gdf["crop"].str.contains(r"Mixture", na=False) & gdf["crop"].str.contains(r"-", na=False) #exclude my fav bad polygons because for classifcation mixed crop polygons are useless for patch wise classification 
         if bad.any():
             print(f"Dropping {bad.sum()} cross‐crop mixtures:")
             print(gdf.loc[bad, ["plot_ID", "crop"]])
             gdf = gdf.loc[~bad].copy()
 
-        gdf["crop_label"] = gdf["crop"].astype("category").cat.codes
-
+        gdf["crop_label"] = gdf["crop"].astype("category").cat.codes + 1 #we need to start indexing at 1 so no label is 0 which will lead to it be seen as na/backround
         def to_poly(g):
             if g.geom_type == "LineString":
                 coords = list(g.coords)
@@ -150,7 +150,7 @@ class PatchExtractor:
                 continue
 
             label = int(pixel_values[np.argmax(count_pixel)])
-            file_name = f"{i:05d}_{label}.npy" #5 digits for sorting
+            file_name = f"{i:05d}_{label}.npz" #5 digits for sorting
             out_fp     = os.path.join(out_dir, file_name)
             np.savez_compressed(out_fp, image=img_patch, label=label)
 
