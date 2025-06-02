@@ -48,3 +48,4 @@ venv/
 # Output and model directories
 /output/
 /models/
+data/*

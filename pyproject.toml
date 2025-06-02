@@ -1,0 +1,17 @@
+[project]
+name = "cutting-and-label"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "geopandas>=1.1.0",
+    "geopatch>=1.1.1",
+    "numpy>=2.2.6",
+    "pandas>=2.2.3",
+    "rasterio>=1.4.3",
+    "rioxarray>=0.19.0",
+    "scikit-learn>=1.6.1",
+    "shapely>=2.1.1",
+    "xarray>=2025.4.0",
+]
