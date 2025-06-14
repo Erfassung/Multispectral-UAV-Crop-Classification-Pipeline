@@ -69,6 +69,9 @@ for folder in folders:
         label_match = re.search(r'class(\d+)', first_patch_fname)
         if label_match:
             label = label_match.group(1)
+            if label == "0":
+                print(f"Skipping patch {patch_id} (class 0, background)")
+                continue  # Skip background patches
             out_name = f"{patch_id}_class{label}.npy"
         else:
             out_name = f"{patch_id}.npy"
