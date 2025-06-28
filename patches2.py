@@ -15,8 +15,8 @@ class PatchExtractor:
         ortho_dir: str,            # directory containing orthos
         mask_path: str = None,     # if provided skip rasterization
         output_dir: str = "patches_npy",
-        patch_size: int = 256,
-        stride: int = 128,
+        patch_size: int = 128,
+        stride: int = 64,
         channel_first: bool = True):
 
         self.vector_path   = vector_path
@@ -26,6 +26,8 @@ class PatchExtractor:
         self.stride        = stride
         self.channel_first= channel_first
         os.makedirs(self.output_dir, exist_ok=True)
+
+        print(f"Configuration: {self.patch_size=}, {self.stride=}, {self.channel_first=}")
 
         # load and encode vector
         self._load_and_encode_vector()
@@ -130,8 +132,8 @@ if __name__ == "__main__":
     parser.add_argument("ortho_dir", help="Directory containing aligned multispectral orthos (*.tif).")
     parser.add_argument("--mask_path", default=None, help="Precomputed mask TIFF. If omitted, one mask is rasterized from the vector.")
     parser.add_argument("--output_dir", default="patches_npy", help="Directory where patch .tif files will be saved.")
-    parser.add_argument("--patch_size", type=int, default=256, help="Patch height/width in pixels (default: 256).")
-    parser.add_argument("--stride", type=int, default=128, help="Sliding window stride in pixels (default: 128).")
+    parser.add_argument("--patch_size", type=int, default=64, help="Patch height/width in pixels (default: 64).")
+    parser.add_argument("--stride", type=int, default=32, help="Sliding window stride in pixels (default: 32).")
     parser.add_argument("--channel_first", type=lambda x: bool(int(x)), default=True, help="Store patches as (C,H,W) if true, else (H,W,C). Use 1 for True, 0 for False.")
 
     args = parser.parse_args()
