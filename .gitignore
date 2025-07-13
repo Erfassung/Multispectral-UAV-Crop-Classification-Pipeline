@@ -91,3 +91,8 @@ patches_npy/
 # Keep directory structure but ignore contents
 !.gitkeep
 !**/README.md
+# Output and model directories
+/output/
+/models/
+data/
+model_weights/*
