@@ -62,7 +62,7 @@ python main.py pipeline \\
     --zone-mask data/raw/zone_masks/spatial_zones.tif
 ```
 
-## 📖 Detailed Usage
+## Detailed Usage
 
 ### Step-by-Step Execution
 
