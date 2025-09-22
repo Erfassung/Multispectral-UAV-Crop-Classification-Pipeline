@@ -256,7 +256,7 @@ splitter.set_custom_zone_mapping({1: "train", 2: "val", 3: "test"})
 - **Content**: Patch assignments to train/validation/test splits
 - **Spatial Awareness**: Ensures no spatial overlap between splits
 
-## 🛠️ Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
