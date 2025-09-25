@@ -1,0 +1,43 @@
+{
+    "pipeline": {
+        "name": "Crop Classification Pipeline",
+        "version": "1.0.0",
+        "description": "Preprocessing pipeline for multispectral crop classification"
+    },
+    "patch_extraction": {
+        "patch_size": 256,
+        "stride": 128,
+        "channel_first": true,
+        "min_plots_per_class": 3,
+        "default_output_dir": "data/processed/patches"
+    },
+    "temporal_stacking": {
+        "expected_bands": 10,
+        "min_temporal_samples": 3,
+        "date_pattern": "\\d{6}_reflectance_ortho",
+        "patch_subdir": "patch",
+        "default_output_dir": "data/processed/stacked"
+    },
+    "spatial_splitting": {
+        "excluded_classes": [1, 2],
+        "min_temporal_samples": 3,
+        "zone_mapping": {
+            "1": "train",
+            "2": "train", 
+            "3": "val",
+            "4": "test"
+        }
+    },
+    "logging": {
+        "level": "INFO",
+        "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        "file": "pipeline.log"
+    },
+    "paths": {
+        "raw_data": "data/raw",
+        "processed_data": "data/processed", 
+        "output": "output",
+        "logs": "logs",
+        "models": "output/models"
+    }
+}

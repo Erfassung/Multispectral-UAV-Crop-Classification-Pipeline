@@ -1,50 +1,93 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*$py.class
 *.so
 
-# Jupyter Notebook checkpoints
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
 .ipynb_checkpoints/
 
-# VS Code settings
-.vscode/
+# Data files (add your specific data patterns)
+data/raw/orthoimages/*.tif
+data/raw/vectors/*.geojson
+data/raw/vectors/*.shp
+data/raw/zone_masks/*.tif
+data/processed/patches/
+data/processed/stacked/*.npy
+data/processed/stacked/*.csv
 
-# macOS / Linux system files
-.DS_Store
-Thumbs.db
+# Model files
+output/models/*.joblib
+output/models/*.pkl
+models/*.joblib
+models/*.pkl
 
-# Logs
+# Output files
+output/predictions/*.csv
+output/visualizations/*.png
+output/visualizations/*.jpg
 *.log
-
-# Python virtual environments (if used, e.g., in a subdir)
-.env/
-.venv/
-env/
-venv/
-
-# Data files (raw or processed)
-*.tif
-*.tiff
-*.csv
-*.tsv
-*.json
-*.npy
-*.npz
-*.pickle
-*.pkl
-*.h5
-*.hdf5
-
-# Rasterio auxiliary files
-*.aux.xml
-*.ovr
+logs/*.log
+pipeline.log
 
 # Temporary files
 *.tmp
-*.bak
-*.swp
-*~
+*.temp
+.cache/
 
-# Output and model directories
-/output/
-/models/
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Large data files
+*.npy
+stacked_patches_npy*/
+patches_npy/
+*.tif
+*.tiff
+*.nc
+
+# Keep directory structure but ignore contents
+!.gitkeep
+!**/README.md
