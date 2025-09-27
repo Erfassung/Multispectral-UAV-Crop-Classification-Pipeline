@@ -159,7 +159,6 @@ jupyter notebook notebooks/example_training_pipeline.ipynb
 
 The notebook demonstrates:
 - Feature engineering from 4D temporal data
-- Random Forest training with feature selection
 - PCA-based dimensionality reduction
 - Comprehensive model evaluation
 - Spatial error analysis and visualization
