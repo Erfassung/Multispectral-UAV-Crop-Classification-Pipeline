@@ -2,19 +2,19 @@
 
 A comprehensive preprocessing pipeline for multispectral crop classification using temporal orthoimages and machine learning.
 
-## 🌾 Overview
+##  Overview
 
 This pipeline transforms raw multispectral orthoimages and crop field vectors into machine learning-ready datasets with spatially-aware train/validation/test splits. It's designed for time-series crop classification using Random Forest and other ML algorithms.
 
 ### Key Features
 
-- **🔍 Patch Extraction**: Extract labeled patches from multispectral orthoimages using field boundaries
-- **📅 Temporal Stacking**: Combine multi-date patches into 4D time-series arrays
-- **🗺️ Spatial Splitting**: Create spatially-aware train/val/test splits to prevent data leakage
-- **⚙️ Configurable Pipeline**: Fully configurable parameters via command line or config files
-- **📊 Built-in Analytics**: Comprehensive statistics and validation throughout the process
+- ** Patch Extraction**: Extract labeled patches from multispectral orthoimages using field boundaries
+- ** Temporal Stacking**: Combine multi-date patches into 4D time-series arrays
+- ** Spatial Splitting**: Create spatially-aware train/val/test splits to prevent data leakage
+- ** Configurable Pipeline**: Fully configurable parameters via command line or config files
+- ** Built-in Analytics**: Comprehensive statistics and validation throughout the process
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Installation
 
@@ -62,7 +62,7 @@ python main.py pipeline \\
     --zone-mask data/raw/zone_masks/spatial_zones.tif
 ```
 
-## 📖 Detailed Usage
+## Detailed Usage
 
 ### Step-by-Step Execution
 
@@ -117,7 +117,7 @@ Customize with:
 python main.py split ... --zone-mapping 1:train 2:train 3:val 4:test 5:test
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 crop-classification-pipeline/
@@ -149,7 +149,7 @@ crop-classification-pipeline/
 └── logs/                # Log files
 ```
 
-## 📊 Machine Learning Training
+## Machine Learning Training
 
 After preprocessing, use the included training notebook:
 
@@ -164,7 +164,7 @@ The notebook demonstrates:
 - Comprehensive model evaluation
 - Spatial error analysis and visualization
 
-## 🔧 Advanced Usage
+## Advanced Usage
 
 ### Using as Python Library
 
@@ -213,7 +213,7 @@ splitter = SpatialSplitter(...)
 splitter.set_custom_zone_mapping({1: "train", 2: "val", 3: "test"})
 ```
 
-## 🎯 Data Requirements
+## Data Requirements
 
 ### Input Data Format
 
@@ -256,7 +256,7 @@ splitter.set_custom_zone_mapping({1: "train", 2: "val", 3: "test"})
 - **Content**: Patch assignments to train/validation/test splits
 - **Spatial Awareness**: Ensures no spatial overlap between splits
 
-## 🛠️ Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -291,7 +291,7 @@ python main.py stack --date-pattern "\\d{8}_ortho"
 - Consider running on high-memory systems for large datasets
 - Use SSD storage for improved I/O performance
 
-## 📈 Pipeline Statistics
+## Pipeline Statistics
 
 The pipeline provides comprehensive statistics at each step:
 
@@ -301,21 +301,21 @@ The pipeline provides comprehensive statistics at each step:
 
 Example output:
 ```
-🔍 Patch Extraction Complete:
+ Patch Extraction Complete:
    Total patches: 15,432
    Crop classes: 5 (Potato: 3,245, Soybean: 4,123, ...)
    
-📅 Temporal Stacking Complete:
+ Temporal Stacking Complete:
    Stacked patches: 12,847
    Temporal samples: min=3, max=8, mean=5.2
    
-🗺️ Spatial Splitting Complete:
+ Spatial Splitting Complete:
    Train: 8,459 patches (65.8%)
    Validation: 2,144 patches (16.7%) 
    Test: 2,244 patches (17.5%)
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please:
 
@@ -339,31 +339,31 @@ pip install -e .
 python -m pytest tests/
 ```
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Support
+## Support
 
 - **Issues**: [GitHub Issues](https://github.com/your-username/crop-classification-pipeline/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/your-username/crop-classification-pipeline/discussions)
 - **Documentation**: See `docs/` directory for additional documentation
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **GeoPatch Library**: For efficient patch extraction from geospatial data
 - **Rasterio/GDAL**: For robust geospatial data handling
 - **Scikit-learn**: For machine learning utilities and validation metrics
 - **Contributors**: Thanks to all contributors who have helped improve this pipeline
 
-## 📚 Citation
+## Citation
 
 If you use this pipeline in your research, please cite:
 
 ```bibtex
 @software{crop_classification_pipeline,
   title={Crop Classification Pipeline: A Preprocessing Framework for Multispectral Time-Series Data},
-  author={Your Name},
+  author={Nelson Pinheiro},
   year={2024},
   url={https://github.com/your-username/crop-classification-pipeline}
 }
