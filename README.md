@@ -4,15 +4,15 @@ A comprehensive preprocessing pipeline for multispectral crop classification usi
 
 ##  Overview
 
-This pipeline transforms raw multispectral orthoimages and crop field vectors into machine learning-ready datasets with spatially-aware train/validation/test splits. It's designed for time-series crop classification using Random Forest and other ML algorithms.
+This pipeline transforms raw multispectral orthoimages and crop field vectors into machine learning-ready datasets with spatially-aware train/validation/test splits. It's designed for time-series crop classification using Random Forest and other ML and DL algorithms.
 
 ### Key Features
 
-- ** Patch Extraction**: Extract labeled patches from multispectral orthoimages using field boundaries
-- ** Temporal Stacking**: Combine multi-date patches into 4D time-series arrays
-- ** Spatial Splitting**: Create spatially-aware train/val/test splits to prevent data leakage
-- ** Configurable Pipeline**: Fully configurable parameters via command line or config files
-- ** Built-in Analytics**: Comprehensive statistics and validation throughout the process
+-  Patch Extraction: Extract labeled patches from multispectral orthoimages using field boundaries
+-  Temporal Stacking : Combine multi-date patches into 4D time-series arrays
+-  Spatial Splitting : Create spatially-aware train/val/test splits to prevent data leakage
+-  Configurable Pipeline : Fully configurable parameters via command line or config files
+-  Built-in Analytics : Comprehensive statistics and validation throughout the process
 
 ## Quick Start
 
@@ -151,10 +151,11 @@ Multispectral-UAV-Crop-Classification-Pipeline/
 
 ## Machine Learning Training
 
-After preprocessing, use the included training notebook:
+After preprocessing, use the included training notebooks:
 
 ```bash
 jupyter notebook notebooks/
+choose between classic machine learning or deep learning
 ```
 
 The notebooks demonstrate:
@@ -363,7 +364,9 @@ If you use this pipeline in your research, please cite:
 ```bibtex
 @software{Multispectral-UAV-Crop-Classification-Pipeline,
   title={Multispectral-UAV-Crop-Classification-Pipeline: A Preprocessing Framework for Multispectral Time-Series Data},
-  author={Nelson Pinheiro},
+  authors={Nelson Pinheiro & Lena Martin & Marina Assenmacher & Ziyu Pei 
+
+},
   year={2024},
   url={https://github.com/your-username/Multispectral-UAV-Crop-Classification-Pipeline}
 }
