@@ -364,7 +364,9 @@ If you use this pipeline in your research, please cite:
 ```bibtex
 @software{Multispectral-UAV-Crop-Classification-Pipeline,
   title={Multispectral-UAV-Crop-Classification-Pipeline: A Preprocessing Framework for Multispectral Time-Series Data},
-  author={Nelson Pinheiro},
+  authors={Nelson Pinheiro & Lena Martin & Marina Assenmacher & Ziyu Pei 
+
+},
   year={2024},
   url={https://github.com/your-username/Multispectral-UAV-Crop-Classification-Pipeline}
 }
