@@ -40,8 +40,8 @@ class PatchExtractor:
         ortho_dir: str,
         mask_path: Optional[str] = None,
         output_dir: str = "data/processed/patches",
-        patch_size: int = 256,
-        stride: int = 128,
+        patch_size: int = 64,
+        stride: int = 32,
         channel_first: bool = True,
         min_plots_per_class: int = 3
     ):
@@ -176,14 +176,15 @@ class PatchExtractor:
     
     def extract_all_orthos(self) -> None:
         """Extract patches from all orthoimages in the input directory."""
-        # Create mask if not provided
+        # Create mask if not provided - USING SAME APPROACH AS WORKING SCRIPT
         if not self.mask_path:
             ortho_files = sorted(glob.glob(os.path.join(self.ortho_dir, "*.tif")))
             if not ortho_files:
                 raise ValueError(f"No .tif files found in {self.ortho_dir}")
             
             first_ortho = ortho_files[0]
-            mask_out = os.path.join(self.output_dir, "crop_mask.tif")
+            # Put mask in same directory as vector file (like working script)
+            mask_out = os.path.join(os.path.dirname(self.vector_path), "crop_mask.tif")
             self.rasterize_mask(first_ortho, mask_out)
         
         # Process all orthoimages
@@ -192,6 +193,54 @@ class PatchExtractor:
         
         for ortho_path in tqdm(ortho_files, desc="Extracting patches"):
             self._process_single_ortho(ortho_path)
+    
+    def _validate_stride_parameters(self, ortho_path: str) -> int:
+        """
+        Validate and adjust stride parameters to prevent GeoPatch errors.
+        
+        Args:
+            ortho_path: Path to the orthoimage file
+            
+        Returns:
+            Validated stride value
+        """
+        with rasterio.open(ortho_path) as src:
+            height, width = src.shape
+        
+        original_stride = self.stride
+        validated_stride = original_stride
+        
+        # GeoPatch seems to have specific requirements for effective dimensions
+        # We need to ensure the patch can fit with proper stride
+        min_dimension = min(height, width)
+        
+        # If patch size is larger than image dimensions, reduce patch size first
+        if self.patch_size >= min_dimension:
+            logger.warning(f"Patch size {self.patch_size} is larger than minimum image dimension {min_dimension}. "
+                         f"This may cause issues.")
+        
+        # Test stride values that are known to work
+        # Based on our testing, smaller strides work better
+        test_strides = [16, 24, 32, 48, 64, 96, 128]
+        
+        for test_stride in test_strides:
+            if test_stride <= self.patch_size // 4:  # Stride should be much smaller than patch size
+                # Simple check: ensure we can fit at least one patch
+                if (width > self.patch_size + test_stride and 
+                    height > self.patch_size + test_stride):
+                    validated_stride = test_stride
+                    break
+        
+        # Final fallback: use very small stride
+        if validated_stride == original_stride and original_stride > 32:
+            validated_stride = 16
+            logger.warning(f"Using fallback stride of {validated_stride}")
+        
+        if validated_stride != original_stride:
+            logger.warning(f"Adjusted stride from {original_stride} to {validated_stride} "
+                         f"for image dimensions {height}x{width}")
+        
+        return validated_stride
     
     def _process_single_ortho(self, ortho_path: str) -> None:
         """
@@ -204,19 +253,28 @@ class PatchExtractor:
         out_dir = os.path.join(self.output_dir, name)
         os.makedirs(out_dir, exist_ok=True)
         
-        # Use GeoPatch to extract patches
-        patcher = TrainPatch(
-            image=ortho_path,
-            label=self.mask_path,
-            patch_size=self.patch_size,
-            stride=self.stride,
-            channel_first=self.channel_first
-        )
-        patcher.data_dimension()
-        patcher.patch_info()
-        
-        # Save patches as GeoTIFFs
-        patcher.save_Geotif(folder_name=out_dir, only_label=False)
+        # Use GeoPatch with the shared mask (matching working scripts)
+        try:
+            patcher = TrainPatch(
+                image=ortho_path,
+                label=self.mask_path,
+                patch_size=self.patch_size,  # Use actual parameters now
+                stride=self.stride,
+                channel_first=self.channel_first
+            )
+            patcher.data_dimension()
+            patcher.patch_info()
+            
+            # Save patches as GeoTIFFs
+            patcher.save_Geotif(folder_name=out_dir, only_label=False)
+        except Exception as e:
+            if "division by zero" in str(e):
+                logger.error(f"GeoPatch dimension error for {name}. "
+                           f"Parameters used: patch_size={self.patch_size}, stride={self.stride}")
+                logger.error(f"Image dimensions: {rasterio.open(ortho_path).shape}")
+            else:
+                logger.error(f"Error processing {name}: {e}")
+            raise
         
         # Rename patches based on majority class
         self._rename_patches_with_label(out_dir)
