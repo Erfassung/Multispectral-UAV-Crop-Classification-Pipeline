@@ -286,24 +286,52 @@ class PatchExtractor:
         Rename patch files to include majority crop class.
         
         Args:
-            patch_folder: Directory containing patch files
+            patch_folder: Directory containing patch and label subfolders
         """
-        for fp in glob.glob(os.path.join(patch_folder, "*.tif")):
-            with rasterio.open(fp) as src:
+        patch_dir = os.path.join(patch_folder, "patch")
+        label_dir = os.path.join(patch_folder, "label")
+        
+        if not os.path.exists(patch_dir) or not os.path.exists(label_dir):
+            logger.warning(f"Missing patch or label directory in {patch_folder}")
+            return
+        
+        # Get all image patch files
+        patch_files = glob.glob(os.path.join(patch_dir, "*_img.tif"))
+        
+        for patch_file in patch_files:
+            patch_name = os.path.basename(patch_file)
+            patch_id = patch_name.split("_")[0]  # Extract patch ID (e.g., "1" from "1_img.tif")
+            
+            # Find corresponding label file
+            label_file = os.path.join(label_dir, f"{patch_id}_lbl.tif")
+            
+            if not os.path.exists(label_file):
+                continue
+                
+            # Read label data to determine majority class
+            with rasterio.open(label_file) as src:
                 lbl = src.read(1)
             
-            # Find majority class (excluding background)
-            u, c = np.unique(lbl[lbl > 0], return_counts=True)
-            if len(u) == 0:
-                continue
+            # Find majority class (excluding background/zero)
+            non_zero_labels = lbl[lbl > 0]
+            if len(non_zero_labels) == 0:
+                continue  # Skip background patches
             
-            maj = u[np.argmax(c)]
-            base = os.path.splitext(os.path.basename(fp))[0]
+            u, c = np.unique(non_zero_labels, return_counts=True)
+            maj = u[np.argmax(c)]  # Get majority class
             
-            # Only add _classX if not already present
-            if not re.search(r"_class\d+$", base):
-                new = os.path.join(patch_folder, f"{base}_class{maj}.tif")
-                os.rename(fp, new)
+            # Create new filename with class label
+            base = os.path.splitext(patch_name)[0]  # "1_img"
+            
+            # Only rename if not already renamed
+            if not re.search(r"_class\d+", base):
+                new_name = f"{patch_id}_class{maj}_img.tif"
+                new_path = os.path.join(patch_dir, new_name)
+                
+                try:
+                    os.rename(patch_file, new_path)
+                except OSError as e:
+                    logger.warning(f"Failed to rename {patch_name} to {new_name}: {e}")
     
     def get_crop_mapping(self) -> dict:
         """

@@ -1,0 +1,10 @@
+{
+  "model_type": "PCA_RandomForest",
+  "pca_components": 5,
+  "explained_variance": 0.9550548791885376,
+  "test_accuracy": 0.7555026769779893,
+  "test_f1_score": 0.7609476441764367,
+  "oob_score": 0.8876306620209059,
+  "random_state": 42,
+  "timestamp": "2025-09-28T15:02:55.838191"
+}

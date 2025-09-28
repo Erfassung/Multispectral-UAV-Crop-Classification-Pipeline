@@ -119,10 +119,15 @@ def stack_temporal(args) -> str:
     stats = stacker.get_statistics()
     logger.info(f"Stacking complete. Statistics:")
     logger.info(f"  Total patches: {stats['total_patches']}")
-    logger.info(f"  Unique classes: {stats['unique_classes']}")
-    logger.info(f"  Temporal samples - Min: {stats['temporal_samples_stats']['min']}, "
-               f"Max: {stats['temporal_samples_stats']['max']}, "
-               f"Mean: {stats['temporal_samples_stats']['mean']:.1f}")
+    
+    # Only log additional stats if patches were processed
+    if stats['total_patches'] > 0:
+        logger.info(f"  Unique classes: {stats['unique_classes']}")
+        logger.info(f"  Temporal samples - Min: {stats['temporal_samples_stats']['min']}, "
+                   f"Max: {stats['temporal_samples_stats']['max']}, "
+                   f"Mean: {stats['temporal_samples_stats']['mean']:.1f}")
+    else:
+        logger.warning("  No patches were processed. Check min_temporal_samples requirement.")
     
     return mapping_path
 
@@ -264,7 +269,7 @@ def main():
     stack_parser.add_argument('--patches-dir', default='data/processed/patches', help='Directory containing patches')
     stack_parser.add_argument('--output-dir', default='data/processed/stacked', help='Output directory for stacked arrays')
     stack_parser.add_argument('--patch-subdir', default='patch', help='Subdirectory name within date folders')
-    stack_parser.add_argument('--date-pattern', default=r'\\d{6}_reflectance_ortho', help='Regex pattern for date folders')
+    stack_parser.add_argument('--date-pattern', default=r'\d{6}_reflectance_ortho', help='Regex pattern for date folders')
     stack_parser.add_argument('--expected-bands', type=int, default=10, help='Expected number of spectral bands')
     stack_parser.add_argument('--min-temporal-samples', type=int, default=3, help='Minimum temporal samples required')
     
@@ -291,7 +296,7 @@ def main():
     pipeline_parser.add_argument('--channel-first', action='store_true', default=True, help='Store patches as (C,H,W)')
     pipeline_parser.add_argument('--min-plots-per-class', type=int, default=3, help='Minimum plots per crop class')
     pipeline_parser.add_argument('--patch-subdir', default='patch', help='Subdirectory name within date folders')
-    pipeline_parser.add_argument('--date-pattern', default=r'\\d{6}_reflectance_ortho', help='Regex pattern for date folders')
+    pipeline_parser.add_argument('--date-pattern', default=r'\d{6}_reflectance_ortho', help='Regex pattern for date folders')
     pipeline_parser.add_argument('--expected-bands', type=int, default=10, help='Expected number of spectral bands')
     pipeline_parser.add_argument('--min-temporal-samples', type=int, default=3, help='Minimum temporal samples required')
     pipeline_parser.add_argument('--excluded-classes', type=int, nargs='+', default=[1, 2], help='Class IDs to exclude')
