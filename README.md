@@ -4,7 +4,7 @@ A comprehensive preprocessing pipeline for multispectral crop classification usi
 
 ##  Overview
 
-This pipeline transforms raw multispectral orthoimages and crop field vectors into machine learning-ready datasets with spatially-aware train/validation/test splits. It's designed for time-series crop classification using Random Forest and other ML algorithms.
+This pipeline transforms raw multispectral orthoimages and crop field vectors into machine learning-ready datasets with spatially-aware train/validation/test splits. It's designed for time-series crop classification using Random Forest and other ML and DL algorithms.
 
 ### Key Features
 
@@ -151,10 +151,11 @@ Multispectral-UAV-Crop-Classification-Pipeline/
 
 ## Machine Learning Training
 
-After preprocessing, use the included training notebook:
+After preprocessing, use the included training notebooks:
 
 ```bash
 jupyter notebook notebooks/
+choose between classic machine learning or deep learning
 ```
 
 The notebooks demonstrate:
