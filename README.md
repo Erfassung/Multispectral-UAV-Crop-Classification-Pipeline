@@ -8,11 +8,11 @@ This pipeline transforms raw multispectral orthoimages and crop field vectors in
 
 ### Key Features
 
-- ** Patch Extraction** : Extract labeled patches from multispectral orthoimages using field boundaries
-- ** Temporal Stacking** : Combine multi-date patches into 4D time-series arrays
-- ** Spatial Splitting** : Create spatially-aware train/val/test splits to prevent data leakage
-- ** Configurable Pipeline** : Fully configurable parameters via command line or config files
-- ** Built-in Analytics** : Comprehensive statistics and validation throughout the process
+-  Patch Extraction: Extract labeled patches from multispectral orthoimages using field boundaries
+-  Temporal Stacking : Combine multi-date patches into 4D time-series arrays
+-  Spatial Splitting : Create spatially-aware train/val/test splits to prevent data leakage
+-  Configurable Pipeline : Fully configurable parameters via command line or config files
+-  Built-in Analytics : Comprehensive statistics and validation throughout the process
 
 ## Quick Start
 
