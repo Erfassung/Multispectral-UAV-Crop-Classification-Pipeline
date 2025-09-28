@@ -20,8 +20,8 @@ This pipeline transforms raw multispectral orthoimages and crop field vectors in
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/crop-classification-pipeline.git
-cd crop-classification-pipeline
+git clone https://github.com/your-username/Multispectral-UAV-Crop-Classification-Pipeline
+cd Multispectral-UAV-Crop-Classification-Pipeline
 
 # Run setup script (creates venv, installs dependencies, sets up directories)
 python setup.py
@@ -120,7 +120,7 @@ python main.py split ... --zone-mapping 1:train 2:train 3:val 4:test 5:test
 ## Project Structure
 
 ```
-crop-classification-pipeline/
+Multispectral-UAV-Crop-Classification-Pipeline/
 ├── main.py                 # Main pipeline orchestrator
 ├── setup.py               # Environment setup script
 ├── requirements.txt       # Python dependencies
@@ -154,14 +154,15 @@ crop-classification-pipeline/
 After preprocessing, use the included training notebook:
 
 ```bash
-jupyter notebook notebooks/example_training_pipeline.ipynb
+jupyter notebook notebooks/
 ```
 
-The notebook demonstrates:
+The notebooks demonstrate:
 - Feature engineering from 4D temporal data
 - PCA-based dimensionality reduction
 - Comprehensive model evaluation
 - Spatial error analysis and visualization
+- automated deep learning approach
 
 ## Advanced Usage
 
@@ -328,7 +329,7 @@ Contributions are welcome! Please:
 
 ```bash
 # Clone for development
-git clone https://github.com/your-username/crop-classification-pipeline.git
+git clone https://github.com/your-username/Multispectral-UAV-Crop-Classification-Pipeline.git
 cd crop-classification-pipeline
 
 # Install in development mode
@@ -344,8 +345,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/your-username/crop-classification-pipeline/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-username/crop-classification-pipeline/discussions)
+- **Issues**: [GitHub Issues](https://github.com/your-username/Multispectral-UAV-Crop-Classification-Pipeline/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/your-username/Multispectral-UAV-Crop-Classification-Pipeline/discussions)
 - **Documentation**: See `docs/` directory for additional documentation
 
 ## Acknowledgments
@@ -360,11 +361,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 If you use this pipeline in your research, please cite:
 
 ```bibtex
-@software{crop_classification_pipeline,
-  title={Crop Classification Pipeline: A Preprocessing Framework for Multispectral Time-Series Data},
+@software{Multispectral-UAV-Crop-Classification-Pipeline,
+  title={Multispectral-UAV-Crop-Classification-Pipeline: A Preprocessing Framework for Multispectral Time-Series Data},
   author={Nelson Pinheiro},
   year={2024},
-  url={https://github.com/your-username/crop-classification-pipeline}
+  url={https://github.com/your-username/Multispectral-UAV-Crop-Classification-Pipeline}
 }
 ```
 
