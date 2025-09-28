@@ -20,8 +20,8 @@ This pipeline transforms raw multispectral orthoimages and crop field vectors in
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/crop-classification-pipeline.git
-cd crop-classification-pipeline
+git clone https://github.com/your-username/Multispectral-UAV-Crop-Classification-Pipeline
+cd Multispectral-UAV-Crop-Classification-Pipeline
 
 # Run setup script (creates venv, installs dependencies, sets up directories)
 python setup.py
